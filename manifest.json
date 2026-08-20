@@ -1,0 +1,10 @@
+{
+  "name": "BPL Name Generator",
+  "short_name": "BPL Generator",
+  "description": "Generador de nombres de archivos para pruebas BPL",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#2563eb",
+  "orientation": "portrait"
+}
