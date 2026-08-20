@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color"
+      content="#2563eb">
+
+<title>BPL Name Generator - Offline</title>
+
+
+<style>
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    padding: 20px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f3f4f6;
+
+    color: #1f2937;
+}
+
+
+.container {
+
+    max-width: 900px;
+
+    margin: 20px auto;
+
+    padding: 30px;
+
+    background: white;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,0.10);
+}
+
+
+/* =========================================================
+   TITULO
+   ========================================================= */
+
+h1 {
+
+    text-align: center;
+
+    margin-top: 0;
+
+    margin-bottom: 8px;
+
+    font-size: 30px;
+}
+
+
+.subtitle {
+
+    text-align: center;
+
+    color: #6b7280;
+
+    margin-bottom: 35px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 22px;
+}
+
+
+.field {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.full {
+
+    grid-column:
+        1 / -1;
+}
+
+
+label {
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+}
+
+
+input,
+select,
+textarea {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border:
+        1px solid
+        #d1d5db;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: white;
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    outline: none;
+
+    border-color:
+        #2563eb;
+}
+
+
+/* =========================================================
+   FILAS CON BOTON +
+   ========================================================= */
+
+.add-row {
+
+    display: flex;
+
+    gap: 8px;
+}
+
+
+.add-row input,
+.add-row select {
+
+    flex: 1;
+}
+
+
+.add-button {
+
+    width: 48px;
+
+    min-width: 48px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #374151;
+
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+}
+
+
+.add-button:hover {
+
+    background: #111827;
+}
+
+
+.help {
+
+    margin-top: 6px;
+
+    font-size: 13px;
+
+    color: #6b7280;
+}
+
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-top: 35px;
+}
+
+
+button {
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 13px 24px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.generate {
+
+    background: #2563eb;
+
+    color: white;
+}
+
+
+.generate:hover {
+
+    background: #1d4ed8;
+}
+
+
+.copy {
+
+    background: #16a34a;
+
+    color: white;
+}
+
+
+.copy:hover {
+
+    background: #15803d;
+}
+
+
+.clear {
+
+    background: #6b7280;
+
+    color: white;
+}
+
+
+.clear:hover {
+
+    background: #4b5563;
+}
+
+
+/* =========================================================
+   RESULTADO
+   ========================================================= */
+
+.result {
+
+    margin-top: 35px;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    background: #f3f4f6;
+}
+
+
+#resultado {
+
+    width: 100%;
+
+    min-height: 100px;
+
+    resize: vertical;
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
+
+    background: white;
+}
+
+
+.result-buttons {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-top: 12px;
+}
+
+
+.status {
+
+    text-align: center;
+
+    min-height: 22px;
+
+    margin-top: 12px;
+
+    color: #16a34a;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   INFORMACION OFFLINE
+   ========================================================= */
+
+.offline-box {
+
+    margin-top: 25px;
+
+    padding: 12px 15px;
+
+    border-radius: 8px;
+
+    background: #ecfdf5;
+
+    color: #166534;
+
+    text-align: center;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MOVIL
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    body {
+
+        padding: 0;
+    }
+
+
+    .container {
+
+        width: 100%;
+
+        margin: 0;
+
+        padding: 20px 15px;
+
+        border-radius: 0;
+
+        box-shadow: none;
+    }
+
+
+    h1 {
+
+        font-size: 25px;
+    }
+
+
+    .subtitle {
+
+        font-size: 14px;
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    .full {
+
+        grid-column: auto;
+    }
+
+
+    .result {
+
+        margin-top: 25px;
+
+        padding: 15px;
+    }
+
+
+    #resultado {
+
+        min-height: 140px;
+
+        font-size: 16px;
+
+        padding: 12px;
+
+        white-space: pre-wrap;
+
+        overflow-wrap: anywhere;
+
+        word-break: break-word;
+    }
+
+
+    .buttons {
+
+        margin-top: 25px;
+    }
+
+
+    .buttons button {
+
+        flex: 1;
+
+        min-width: 100px;
+    }
+
+
+    .result-buttons {
+
+        justify-content: center;
+    }
+
+
+    .result-buttons button {
+
+        width: 100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+    BPL Name Generator
+</h1>
+
+
+<p class="subtitle">
+
+    Generador de nombres de archivos para
+    pruebas.
+
+</p>
+
+
+<div class="form-grid">
+
+
+<!-- =====================================================
+     EMPRESA
+     ===================================================== -->
+
+<div class="field">
+
+<label for="empresa">
+    Empresa
+</label>
+
+
+<div class="add-row">
+
+<select id="empresa">
+
+<option value="">
+    Seleccione una empresa...
+</option>
+
+</select>
+
+
+<button
+    type="button"
+    class="add-button"
+    onclick="agregarEmpresa()">
+
+    +
+
+</button>
+
+</div>
+
+
+<div class="help">
+
+    Seleccione una empresa o agregue una nueva.
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     TIPO DE PRUEBA
+     ===================================================== -->
+
+<div class="field">
+
+<label for="tipoPrueba">
+    Tipo de Prueba
+</label>
+
+
+<div class="add-row">
+
+<select id="tipoPrueba">
+
+<option value="">
+    Seleccione un tipo de prueba...
+</option>
+
+</select>
+
+
+<button
+    type="button"
+    class="add-button"
+    onclick="agregarTipoPrueba()">
+
+    +
+
+</button>
+
+</div>
+
+
+<div class="help">
+
+    Seleccione un tipo o agregue uno nuevo.
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     CLIENTE
+     ===================================================== -->
+
+<div class="field full">
+
+<label for="cliente">
+    Cliente
+</label>
+
+
+<div class="add-row">
+
+<input
+    type="text"
+    id="cliente"
+    list="listaClientes"
+    placeholder="Escriba el cliente..."
+    autocomplete="off"
+>
+
+
+<datalist id="listaClientes"></datalist>
+
+
+<button
+    type="button"
+    class="add-button"
+    onclick="agregarCliente()">
+
+    +
+
+</button>
+
+</div>
+
+
+<div class="help">
+
+    Escriba un cliente nuevo o seleccione uno guardado.
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     LOCACION
+     ===================================================== -->
+
+<div class="field">
+
+<label for="locacion">
+
+    Locación
+
+</label>
+
+
+<input
+    type="text"
+    id="locacion"
+    placeholder="Escriba la locación..."
+>
+
+
+<div class="help">
+
+    Ejemplo: CRAWFORD
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     LUGAR EXACTO
+     ===================================================== -->
+
+<div class="field">
+
+<label for="lugar">
+
+    Lugar Exacto
+
+</label>
+
+
+<input
+    type="text"
+    id="lugar"
+    placeholder="Escriba el lugar exacto..."
+>
+
+
+<div class="help">
+
+    Ejemplo: 387HTB
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ELEMENTO PROBADO
+     ===================================================== -->
+
+<div class="field">
+
+<label for="elemento">
+
+    Elemento Probado
+
+</label>
+
+
+<input
+    type="text"
+    id="elemento"
+    placeholder="Ejemplo: 3x CABLE SET"
+>
+
+
+<div class="help">
+
+    Ejemplo: 3x CABLE SET
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     FECHA
+     ===================================================== -->
+
+<div class="field">
+
+<label for="fecha">
+
+    Fecha de la Prueba
+
+</label>
+
+
+<input
+    type="date"
+    id="fecha"
+>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     BOTONES
+     ===================================================== -->
+
+<div class="buttons">
+
+
+<button
+    type="button"
+    class="generate"
+    onclick="generarNombre()">
+
+    Generar Nombre
+
+</button>
+
+
+<button
+    type="button"
+    class="copy"
+    onclick="copiarNombre()">
+
+    Copiar
+
+</button>
+
+
+<button
+    type="button"
+    class="clear"
+    onclick="limpiarFormulario()">
+
+    Limpiar
+
+</button>
+
+
+</div>
+
+
+<!-- =====================================================
+     RESULTADO
+     ===================================================== -->
+
+<div class="result">
+
+<label for="resultado">
+
+    Nombre del Archivo:
+
+</label>
+
+
+<textarea
+    id="resultado"
+    readonly
+    rows="4"
+    placeholder="El nombre aparecerá aquí..."
+></textarea>
+
+
+<div class="result-buttons">
+
+<button
+    type="button"
+    class="copy"
+    onclick="copiarNombre()">
+
+    Copiar Nombre
+
+</button>
+
+</div>
+
+
+<div
+    id="status"
+    class="status">
+</div>
+
+
+</div>
+
+
+<div class="offline-box">
+
+    ✓ Esta versión funciona sin conexión a Internet.
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* ========================================================
+   ALMACENAMIENTO
+   ======================================================== */
+
+const STORAGE_EMPRESAS =
+    "bpl_offline_empresas";
+
+const STORAGE_PRUEBAS =
+    "bpl_offline_pruebas";
+
+const STORAGE_CLIENTES =
+    "bpl_offline_clientes";
+
+
+/* ========================================================
+   DATOS INICIALES
+   ======================================================== */
+
+let empresas =
+    cargarDatos(
+        STORAGE_EMPRESAS,
+        ["BPL-S"]
+    );
+
+
+let tiposPrueba =
+    cargarDatos(
+        STORAGE_PRUEBAS,
+        ["VLF_TEST"]
+    );
+
+
+let clientes =
+    cargarDatos(
+        STORAGE_CLIENTES,
+        []
+    );
+
+
+/* ========================================================
+   CARGAR DATOS
+   ======================================================== */
+
+function cargarDatos(
+    nombre,
+    valorInicial
+) {
+
+    const guardado =
+        localStorage.getItem(nombre);
+
+
+    if (!guardado) {
+
+        return valorInicial;
+
+    }
+
+
+    try {
+
+        return JSON.parse(guardado);
+
+    }
+
+    catch (error) {
+
+        return valorInicial;
+
+    }
+
+}
+
+
+/* ========================================================
+   GUARDAR DATOS
+   ======================================================== */
+
+function guardarDatos(
+    nombre,
+    datos
+) {
+
+    localStorage.setItem(
+        nombre,
+        JSON.stringify(datos)
+    );
+
+}
+
+
+/* ========================================================
+   EMPRESAS
+   ======================================================== */
+
+function cargarEmpresas() {
+
+    const select =
+        document.getElementById(
+            "empresa"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Seleccione una empresa...
+        </option>
+
+    `;
+
+
+    empresas.forEach(
+        empresa => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                empresa;
+
+
+            option.textContent =
+                empresa;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+function agregarEmpresa() {
+
+    const nombre =
+        prompt(
+            "Escriba el nombre de la nueva empresa:"
+        );
+
+
+    if (!nombre) {
+
+        return;
+
+    }
+
+
+    const empresa =
+        nombre
+        .trim()
+        .toUpperCase();
+
+
+    if (!empresa) {
+
+        return;
+
+    }
+
+
+    if (
+        empresas.includes(
+            empresa
+        )
+    ) {
+
+        alert(
+            "Esa empresa ya existe."
+        );
+
+        return;
+
+    }
+
+
+    empresas.push(
+        empresa
+    );
+
+
+    guardarDatos(
+        STORAGE_EMPRESAS,
+        empresas
+    );
+
+
+    cargarEmpresas();
+
+
+    document.getElementById(
+        "empresa"
+    ).value =
+        empresa;
+
+
+    mostrarMensaje(
+        "Empresa agregada."
+    );
+
+}
+
+
+/* ========================================================
+   TIPOS DE PRUEBA
+   ======================================================== */
+
+function cargarTiposPrueba() {
+
+    const select =
+        document.getElementById(
+            "tipoPrueba"
+        );
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Seleccione un tipo de prueba...
+        </option>
+
+    `;
+
+
+    tiposPrueba.forEach(
+        tipo => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                tipo;
+
+
+            option.textContent =
+                tipo;
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+function agregarTipoPrueba() {
+
+    const nombre =
+        prompt(
+            "Escriba el nuevo tipo de prueba:"
+        );
+
+
+    if (!nombre) {
+
+        return;
+
+    }
+
+
+    const tipo =
+        nombre
+        .trim()
+        .toUpperCase();
+
+
+    if (!tipo) {
+
+        return;
+
+    }
+
+
+    if (
+        tiposPrueba.includes(
+            tipo
+        )
+    ) {
+
+        alert(
+            "Ese tipo de prueba ya existe."
+        );
+
+        return;
+
+    }
+
+
+    tiposPrueba.push(
+        tipo
+    );
+
+
+    guardarDatos(
+        STORAGE_PRUEBAS,
+        tiposPrueba
+    );
+
+
+    cargarTiposPrueba();
+
+
+    document.getElementById(
+        "tipoPrueba"
+    ).value =
+        tipo;
+
+
+    mostrarMensaje(
+        "Tipo de prueba agregado."
+    );
+
+}
+
+
+/* ========================================================
+   CLIENTES
+   ======================================================== */
+
+function cargarClientes() {
+
+    const lista =
+        document.getElementById(
+            "listaClientes"
+        );
+
+
+    lista.innerHTML = "";
+
+
+    clientes
+    .sort()
+    .forEach(
+        cliente => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                cliente;
+
+
+            lista.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+function agregarCliente() {
+
+    const input =
+        document.getElementById(
+            "cliente"
+        );
+
+
+    const nombre =
+        input.value
+        .trim()
+        .toUpperCase();
+
+
+    if (!nombre) {
+
+        alert(
+            "Escriba el nombre del cliente primero."
+        );
+
+        input.focus();
+
+        return;
+
+    }
+
+
+    if (
+        clientes.includes(
+            nombre
+        )
+    ) {
+
+        alert(
+            "Ese cliente ya existe."
+        );
+
+        return;
+
+    }
+
+
+    clientes.push(
+        nombre
+    );
+
+
+    guardarDatos(
+        STORAGE_CLIENTES,
+        clientes
+    );
+
+
+    cargarClientes();
+
+
+    input.value =
+        nombre;
+
+
+    mostrarMensaje(
+        "Cliente agregado."
+    );
+
+}
+
+
+/* ========================================================
+   GENERAR NOMBRE
+   ======================================================== */
+
+function generarNombre() {
+
+
+    const empresa =
+        document
+        .getElementById(
+            "empresa"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const tipoPrueba =
+        document
+        .getElementById(
+            "tipoPrueba"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const cliente =
+        document
+        .getElementById(
+            "cliente"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const locacion =
+        document
+        .getElementById(
+            "locacion"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const lugar =
+        document
+        .getElementById(
+            "lugar"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const elemento =
+        document
+        .getElementById(
+            "elemento"
+        )
+        .value
+        .trim()
+        .toUpperCase();
+
+
+    const fecha =
+        document
+        .getElementById(
+            "fecha"
+        )
+        .value;
+
+
+    /* =====================================================
+       VALIDACION
+       ===================================================== */
+
+    if (
+        !empresa ||
+        !tipoPrueba ||
+        !cliente ||
+        !locacion ||
+        !lugar ||
+        !elemento ||
+        !fecha
+    ) {
+
+        alert(
+            "Por favor complete todos los campos."
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       ELEMENTO
+       ===================================================== */
+
+    const elementoFormateado =
+        elemento.replace(
+            /\s+/g,
+            "_"
+        );
+
+
+    /* =====================================================
+       FECHA
+       ===================================================== */
+
+    const partes =
+        fecha.split("-");
+
+
+    const anio =
+        partes[0];
+
+
+    const mes =
+        partes[1];
+
+
+    const dia =
+        partes[2];
+
+
+    const fechaFormateada =
+        `${mes}${dia}${anio}`;
+
+
+    /* =====================================================
+       NOMBRE FINAL
+       ===================================================== */
+
+    const nombreArchivo =
+        `${empresa}_${tipoPrueba}_${cliente}_${locacion}_${lugar}_${elementoFormateado}_${fechaFormateada}`;
+
+
+    document
+    .getElementById(
+        "resultado"
+    )
+    .value =
+        nombreArchivo;
+
+
+    mostrarMensaje(
+        "Nombre generado correctamente."
+    );
+
+}
+
+
+/* ========================================================
+   COPIAR
+   ======================================================== */
+
+async function copiarNombre() {
+
+    const resultado =
+        document.getElementById(
+            "resultado"
+        );
+
+
+    if (!resultado.value) {
+
+        alert(
+            "Primero genere el nombre."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        await navigator
+        .clipboard
+        .writeText(
+            resultado.value
+        );
+
+
+        mostrarMensaje(
+            "¡Nombre copiado!"
+        );
+
+    }
+
+    catch (error) {
+
+        resultado.focus();
+
+        resultado.select();
+
+        document.execCommand(
+            "copy"
+        );
+
+
+        mostrarMensaje(
+            "¡Nombre copiado!"
+        );
+
+    }
+
+}
+
+
+/* ========================================================
+   LIMPIAR
+   ======================================================== */
+
+function limpiarFormulario() {
+
+    document.getElementById(
+        "empresa"
+    ).value = "";
+
+
+    document.getElementById(
+        "tipoPrueba"
+    ).value = "";
+
+
+    document.getElementById(
+        "cliente"
+    ).value = "";
+
+
+    document.getElementById(
+        "locacion"
+    ).value = "";
+
+
+    document.getElementById(
+        "lugar"
+    ).value = "";
+
+
+    document.getElementById(
+        "elemento"
+    ).value = "";
+
+
+    document.getElementById(
+        "fecha"
+    ).value = "";
+
+
+    document.getElementById(
+        "resultado"
+    ).value = "";
+
+
+    document.getElementById(
+        "status"
+    ).textContent = "";
+
+}
+
+
+/* ========================================================
+   MENSAJES
+   ======================================================== */
+
+function mostrarMensaje(
+    mensaje
+) {
+
+    const status =
+        document.getElementById(
+            "status"
+        );
+
+
+    status.textContent =
+        mensaje;
+
+
+    setTimeout(
+        function() {
+
+            status.textContent =
+                "";
+
+        },
+        3000
+    );
+
+}
+
+
+/* ========================================================
+   INICIO
+   ======================================================== */
+
+cargarEmpresas();
+
+cargarTiposPrueba();
+
+cargarClientes();
+
+
+</script>
+
+
+</body>
+</html>
