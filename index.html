@@ -1591,6 +1591,18 @@ cargarClientes();
 
 </script>
 
-
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(function () {
+                console.log("BPL Name Generator: modo offline activado");
+            })
+            .catch(function (error) {
+                console.error("Error con el modo offline:", error);
+            });
+    });
+}
+</script>
 </body>
 </html>
