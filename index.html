@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2563eb">
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -11,597 +9,432 @@
 <meta name="theme-color"
       content="#2563eb">
 
-<title>BPL Name Generator - Offline</title>
+<link rel="manifest" href="manifest.json">
 
+<title>BPL Tools</title>
 
 <style>
-
-/* =========================================================
-   GENERAL
-   ========================================================= */
 
 * {
     box-sizing: border-box;
 }
 
 body {
-
     margin: 0;
-
     padding: 20px;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: Arial, Helvetica, sans-serif;
     background: #f3f4f6;
-
     color: #1f2937;
 }
 
-
 .container {
-
-    max-width: 900px;
-
+    max-width: 950px;
     margin: 20px auto;
-
     padding: 30px;
-
     background: white;
-
     border-radius: 16px;
-
-    box-shadow:
-        0 8px 30px
-        rgba(0,0,0,0.10);
+    box-shadow: 0 8px 30px rgba(0,0,0,.10);
 }
-
-
-/* =========================================================
-   TITULO
-   ========================================================= */
 
 h1 {
-
     text-align: center;
-
     margin-top: 0;
-
     margin-bottom: 8px;
-
-    font-size: 30px;
 }
-
 
 .subtitle {
-
     text-align: center;
-
     color: #6b7280;
-
-    margin-bottom: 35px;
-
-    line-height: 1.5;
+    margin-bottom: 30px;
 }
 
+.menu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
 
-/* =========================================================
-   FORMULARIO
-   ========================================================= */
+.menu button {
+    min-height: 75px;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background: #1d4ed8;
+}
+
+.menu button.active {
+    background: #111827;
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.section-title {
+    font-size: 23px;
+    margin-top: 0;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 12px;
+}
 
 .form-grid {
-
     display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 22px;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
 }
 
+.full {
+    grid-column: 1 / -1;
+}
 
 .field {
-
     display: flex;
-
     flex-direction: column;
 }
 
-
-.full {
-
-    grid-column:
-        1 / -1;
-}
-
-
 label {
-
     font-weight: bold;
-
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 }
-
 
 input,
 select,
 textarea {
-
     width: 100%;
-
-    padding: 13px;
-
-    border:
-        1px solid
-        #d1d5db;
-
+    padding: 12px;
+    border: 1px solid #d1d5db;
     border-radius: 8px;
-
     font-size: 16px;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: Arial, Helvetica, sans-serif;
     background: white;
 }
 
+textarea {
+    resize: vertical;
+}
+
+.comment-box {
+    min-height: 150px;
+}
 
 input:focus,
 select:focus,
 textarea:focus {
-
     outline: none;
-
-    border-color:
-        #2563eb;
+    border-color: #2563eb;
 }
-
-
-/* =========================================================
-   FILAS CON BOTON +
-   ========================================================= */
 
 .add-row {
-
     display: flex;
-
-    gap: 8px;
+    gap: 7px;
 }
-
 
 .add-row input,
 .add-row select {
-
     flex: 1;
 }
 
-
 .add-button {
-
     width: 48px;
-
     min-width: 48px;
-
     border: none;
-
     border-radius: 8px;
-
     background: #374151;
-
     color: white;
-
     font-size: 24px;
-
     cursor: pointer;
 }
-
-
-.add-button:hover {
-
-    background: #111827;
-}
-
 
 .help {
-
-    margin-top: 6px;
-
     font-size: 13px;
-
     color: #6b7280;
+    margin-top: 5px;
 }
-
-
-/* =========================================================
-   BOTONES
-   ========================================================= */
 
 .buttons {
-
     display: flex;
-
     justify-content: center;
-
     gap: 12px;
-
     flex-wrap: wrap;
-
-    margin-top: 35px;
+    margin-top: 28px;
 }
 
-
-button {
-
+button.action {
     border: none;
-
     border-radius: 8px;
-
     padding: 13px 24px;
-
     font-size: 16px;
-
     font-weight: bold;
-
     cursor: pointer;
 }
 
-
 .generate {
-
     background: #2563eb;
-
     color: white;
 }
 
-
-.generate:hover {
-
-    background: #1d4ed8;
+.pdf {
+    background: #dc2626;
+    color: white;
 }
-
 
 .copy {
-
     background: #16a34a;
-
     color: white;
 }
-
-
-.copy:hover {
-
-    background: #15803d;
-}
-
 
 .clear {
-
     background: #6b7280;
-
     color: white;
 }
 
-
-.clear:hover {
-
-    background: #4b5563;
-}
-
-
-/* =========================================================
-   RESULTADO
-   ========================================================= */
-
 .result {
-
-    margin-top: 35px;
-
-    padding: 20px;
-
-    border-radius: 10px;
-
+    margin-top: 25px;
+    padding: 18px;
     background: #f3f4f6;
+    border-radius: 10px;
 }
 
-
-#resultado {
-
-    width: 100%;
-
-    min-height: 100px;
-
-    resize: vertical;
-
+.result textarea {
     font-weight: bold;
-
-    font-size: 17px;
-
-    line-height: 1.5;
-
     overflow-wrap: anywhere;
-
     word-break: break-word;
-
-    background: white;
 }
-
-
-.result-buttons {
-
-    display: flex;
-
-    justify-content: flex-end;
-
-    margin-top: 12px;
-}
-
 
 .status {
-
     text-align: center;
-
-    min-height: 22px;
-
+    min-height: 24px;
     margin-top: 12px;
-
-    color: #16a34a;
-
     font-weight: bold;
+    color: #16a34a;
 }
 
-
-/* =========================================================
-   INFORMACION OFFLINE
-   ========================================================= */
-
 .offline-box {
-
     margin-top: 25px;
-
-    padding: 12px 15px;
-
-    border-radius: 8px;
-
-    background: #ecfdf5;
-
-    color: #166534;
-
+    padding: 12px;
     text-align: center;
-
+    border-radius: 8px;
+    background: #ecfdf5;
+    color: #166534;
     font-size: 14px;
 }
 
+/* START / END TABLE */
 
-/* =========================================================
-   MOVIL
-   ========================================================= */
+.endpoint-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.endpoint-table th,
+.endpoint-table td {
+    border: 1px solid #d1d5db;
+    padding: 9px;
+    vertical-align: top;
+}
+
+.endpoint-table th {
+    background: #f3f4f6;
+    font-size: 18px;
+}
+
+.endpoint-table td:first-child {
+    width: 50%;
+}
+
+.endpoint-table td:nth-child(2) {
+    width: 50%;
+}
+
+.endpoint-table input {
+    width: 100%;
+}
+
+/* MOBILE */
 
 @media (max-width: 700px) {
 
     body {
-
         padding: 0;
     }
 
-
     .container {
-
         width: 100%;
-
         margin: 0;
-
-        padding: 20px 15px;
-
+        padding: 18px 14px;
         border-radius: 0;
-
         box-shadow: none;
     }
 
-
-    h1 {
-
-        font-size: 25px;
+    .menu {
+        grid-template-columns: 1fr;
     }
 
-
-    .subtitle {
-
-        font-size: 14px;
+    .menu button {
+        min-height: 60px;
     }
-
 
     .form-grid {
-
         grid-template-columns: 1fr;
-
-        gap: 18px;
     }
 
-
     .full {
-
         grid-column: auto;
     }
 
-
-    .result {
-
-        margin-top: 25px;
-
-        padding: 15px;
+    .endpoint-table {
+        display: block;
     }
 
-
-    #resultado {
-
-        min-height: 140px;
-
-        font-size: 16px;
-
-        padding: 12px;
-
-        white-space: pre-wrap;
-
-        overflow-wrap: anywhere;
-
-        word-break: break-word;
+    .endpoint-table thead {
+        display: block;
     }
 
-
-    .buttons {
-
-        margin-top: 25px;
+    .endpoint-table tbody {
+        display: block;
     }
 
+    .endpoint-table tr {
+        display: block;
+        margin-bottom: 18px;
+    }
+
+    .endpoint-table th {
+        display: block;
+        width: 100% !important;
+    }
+
+    .endpoint-table td {
+        display: block;
+        width: 100% !important;
+        border-bottom: none;
+    }
+
+    .endpoint-table td:last-child {
+        border-bottom: 1px solid #d1d5db;
+    }
 
     .buttons button {
-
-        flex: 1;
-
-        min-width: 100px;
-    }
-
-
-    .result-buttons {
-
-        justify-content: center;
-    }
-
-
-    .result-buttons button {
-
         width: 100%;
     }
-
 }
 
 </style>
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
+<h1>BPL Tools</h1>
 
-<h1>
-    BPL Name Generator
-</h1>
+<div class="subtitle">
+    BPL Testing Tools
+</div>
 
 
-<p class="subtitle">
+<!-- =====================================================
+     MAIN MENU
+     ===================================================== -->
 
-    Generador de nombres de archivos para
-    pruebas.
+<div class="menu">
 
-</p>
+<button
+    id="menuName"
+    onclick="showSection('nameSection', this)">
+    Generate File Name
+</button>
 
+<button
+    id="menuVLF"
+    onclick="showSection('vlfSection', this)">
+    VLF Test
+</button>
+
+<button
+    id="menuIR"
+    onclick="showSection('irSection', this)">
+    IR Test
+</button>
+
+</div>
+
+
+<!-- =====================================================
+     GENERATE FILE NAME
+     ===================================================== -->
+
+<div
+    id="nameSection"
+    class="section active">
+
+<h2 class="section-title">
+    Generate File Name
+</h2>
 
 <div class="form-grid">
 
 
-<!-- =====================================================
-     EMPRESA
-     ===================================================== -->
-
 <div class="field">
 
-<label for="empresa">
-    Empresa
-</label>
-
+<label>Empresa</label>
 
 <div class="add-row">
 
 <select id="empresa">
-
-<option value="">
-    Seleccione una empresa...
-</option>
-
+<option value="">Seleccione una empresa...</option>
 </select>
-
 
 <button
     type="button"
     class="add-button"
     onclick="agregarEmpresa()">
-
     +
-
 </button>
 
 </div>
 
-
-<div class="help">
-
-    Seleccione una empresa o agregue una nueva.
-
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     TIPO DE PRUEBA
-     ===================================================== -->
 
 <div class="field">
 
-<label for="tipoPrueba">
-    Tipo de Prueba
-</label>
-
+<label>Tipo de Prueba</label>
 
 <div class="add-row">
 
 <select id="tipoPrueba">
-
-<option value="">
-    Seleccione un tipo de prueba...
-</option>
-
+<option value="">Seleccione un tipo...</option>
 </select>
-
 
 <button
     type="button"
     class="add-button"
     onclick="agregarTipoPrueba()">
-
     +
-
 </button>
 
 </div>
 
-
-<div class="help">
-
-    Seleccione un tipo o agregue uno nuevo.
-
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     CLIENTE
-     ===================================================== -->
 
 <div class="field full">
 
-<label for="cliente">
-    Cliente
-</label>
-
+<label>Cliente</label>
 
 <div class="add-row">
 
@@ -610,259 +443,615 @@ button {
     id="cliente"
     list="listaClientes"
     placeholder="Escriba el cliente..."
-    autocomplete="off"
->
-
+    autocomplete="off">
 
 <datalist id="listaClientes"></datalist>
-
 
 <button
     type="button"
     class="add-button"
     onclick="agregarCliente()">
-
     +
-
 </button>
 
 </div>
 
-
-<div class="help">
-
-    Escriba un cliente nuevo o seleccione uno guardado.
-
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     LOCACION
-     ===================================================== -->
 
 <div class="field">
 
-<label for="locacion">
-
-    Locación
-
-</label>
-
+<label>Locación</label>
 
 <input
     type="text"
     id="locacion"
-    placeholder="Escriba la locación..."
->
-
-
-<div class="help">
-
-    Ejemplo: CRAWFORD
+    placeholder="Escriba la locación...">
 
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     LUGAR EXACTO
-     ===================================================== -->
 
 <div class="field">
 
-<label for="lugar">
-
-    Lugar Exacto
-
-</label>
-
+<label>Lugar Exacto</label>
 
 <input
     type="text"
     id="lugar"
-    placeholder="Escriba el lugar exacto..."
->
-
-
-<div class="help">
-
-    Ejemplo: 387HTB
+    placeholder="Escriba el lugar exacto...">
 
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     ELEMENTO PROBADO
-     ===================================================== -->
 
 <div class="field">
 
-<label for="elemento">
-
-    Elemento Probado
-
-</label>
-
+<label>Elemento Probado</label>
 
 <input
     type="text"
     id="elemento"
-    placeholder="Ejemplo: 3x CABLE SET"
->
-
-
-<div class="help">
-
-    Ejemplo: 3x CABLE SET
+    placeholder="Ejemplo: 3x CABLE SET">
 
 </div>
 
-</div>
-
-
-<!-- =====================================================
-     FECHA
-     ===================================================== -->
 
 <div class="field">
 
-<label for="fecha">
-
-    Fecha de la Prueba
-
-</label>
-
+<label>Fecha</label>
 
 <input
     type="date"
-    id="fecha"
->
+    id="fechaNombre">
 
 </div>
 
 
 </div>
 
-
-<!-- =====================================================
-     BOTONES
-     ===================================================== -->
 
 <div class="buttons">
 
-
 <button
-    type="button"
-    class="generate"
+    class="action generate"
     onclick="generarNombre()">
-
     Generar Nombre
-
 </button>
 
-
 <button
-    type="button"
-    class="copy"
+    class="action copy"
     onclick="copiarNombre()">
-
     Copiar
-
 </button>
-
 
 <button
-    type="button"
-    class="clear"
-    onclick="limpiarFormulario()">
-
+    class="action clear"
+    onclick="limpiarNombre()">
     Limpiar
-
 </button>
 
+</div>
+
+
+<div class="result">
+
+<label>Nombre generado:</label>
+
+<textarea
+    id="resultado"
+    rows="4"
+    readonly
+    placeholder="El nombre aparecerá aquí..."></textarea>
+
+</div>
 
 </div>
 
 
 <!-- =====================================================
-     RESULTADO
+     VLF TEST
      ===================================================== -->
 
-<div class="result">
+<div
+    id="vlfSection"
+    class="section">
 
-<label for="resultado">
+<h2 class="section-title">
+    VLF Test
+</h2>
 
-    Nombre del Archivo:
 
-</label>
+<div class="form-grid">
 
+
+<div class="field">
+
+<label>VLF #</label>
+
+<input
+    type="number"
+    id="vlfNumber"
+    min="1"
+    step="1"
+    placeholder="001">
+
+<div class="help">
+    Escriba 1 y se convertirá en 001.
+</div>
+
+</div>
+
+
+<div class="field">
+
+<label>Temperature</label>
+
+<input
+    type="text"
+    id="vlfTemperature"
+    placeholder="Ejemplo: 75 °F">
+
+</div>
+
+
+<div class="field full">
+
+<label>Comment</label>
 
 <textarea
-    id="resultado"
-    readonly
-    rows="4"
-    placeholder="El nombre aparecerá aquí..."
-></textarea>
+    id="vlfComment"
+    class="comment-box"
+    placeholder="Escriba aquí cualquier comentario o información adicional..."></textarea>
+
+</div>
 
 
-<div class="result-buttons">
+<div class="field">
+
+<label>Fecha</label>
+
+<input
+    type="date"
+    id="vlfDate">
+
+</div>
+
+
+<div class="field">
+
+<label>Hora</label>
+
+<input
+    type="time"
+    id="vlfTime">
+
+</div>
+
+
+<div class="field">
+
+<label>Number</label>
+
+<input
+    type="text"
+    id="vlfNumberField">
+
+</div>
+
+
+<div class="field">
+
+<label>Insulation</label>
+
+<input
+    type="text"
+    id="vlfInsulation">
+
+</div>
+
+
+<div class="field full">
+
+<label>Description</label>
+
+<textarea
+    id="vlfDescription"
+    rows="3"></textarea>
+
+</div>
+
+
+<div class="field">
+
+<label>Installation Date</label>
+
+<input
+    type="date"
+    id="vlfInstallationDate">
+
+</div>
+
+
+<div class="field">
+
+<label>Voltage Nominal</label>
+
+<input
+    type="text"
+    id="vlfVoltageNominal"
+    placeholder="Ejemplo: 15 kV">
+
+</div>
+
+
+<div class="field">
+
+<label>Length</label>
+
+<input
+    type="text"
+    id="vlfLength"
+    placeholder="Ejemplo: 500 ft">
+
+</div>
+
+</div>
+
+
+<h3>Start / End</h3>
+
+
+<table class="endpoint-table">
+
+<thead>
+
+<tr>
+<th>START</th>
+<th>END</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+
+<tr>
+
+<td>
+<label>Name</label>
+<input type="text" id="vlfStartName">
+</td>
+
+<td>
+<label>Name</label>
+<input type="text" id="vlfEndName">
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<label>Number</label>
+<input type="text" id="vlfStartNumber">
+</td>
+
+<td>
+<label>Number</label>
+<input type="text" id="vlfEndNumber">
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<label>Location</label>
+<input type="text" id="vlfStartLocation">
+</td>
+
+<td>
+<label>Location</label>
+<input type="text" id="vlfEndLocation">
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<label>Termination</label>
+<input type="text" id="vlfStartTermination">
+</td>
+
+<td>
+<label>Termination</label>
+<input type="text" id="vlfEndTermination">
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<label>Switchgear</label>
+<input type="text" id="vlfStartSwitchgear">
+</td>
+
+<td>
+<label>Switchgear</label>
+<input type="text" id="vlfEndSwitchgear">
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+<label>Manufacturer</label>
+<input type="text" id="vlfStartManufacturer">
+</td>
+
+<td>
+<label>Manufacturer</label>
+<input type="text" id="vlfEndManufacturer">
+</td>
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+
+<div class="buttons">
 
 <button
-    type="button"
-    class="copy"
-    onclick="copiarNombre()">
+    class="action pdf"
+    onclick="generarVlfPdf()">
+    Generate VLF PDF
+</button>
 
-    Copiar Nombre
-
+<button
+    class="action clear"
+    onclick="limpiarVLF()">
+    Clear VLF
 </button>
 
 </div>
 
 
 <div
-    id="status"
+    id="vlfStatus"
     class="status">
 </div>
 
+</div>
+
+
+<!-- =====================================================
+     IR TEST
+     ===================================================== -->
+
+<div
+    id="irSection"
+    class="section">
+
+<h2 class="section-title">
+    IR Test
+</h2>
+
+
+<div class="form-grid">
+
+
+<div class="field">
+
+<label>Date</label>
+
+<input
+    type="date"
+    id="irDate">
+
+</div>
+
+
+<div class="field">
+
+<label>Time</label>
+
+<input
+    type="time"
+    id="irTime">
+
+</div>
+
+
+<div class="field full">
+
+<label>Location</label>
+
+<input
+    type="text"
+    id="irLocation"
+    placeholder="Location">
+
+</div>
+
+
+<div class="field">
+
+<label>Name</label>
+
+<input
+    type="text"
+    id="irName">
+
+</div>
+
+
+<div class="field">
+
+<label>Number</label>
+
+<input
+    type="text"
+    id="irNumber"
+    placeholder="001 o A1">
+
+</div>
+
+
+<div class="field">
+
+<label>Megger ID</label>
+
+<input
+    type="text"
+    id="irMeggerId">
+
+</div>
+
+
+<div class="field">
+
+<label>Type</label>
+
+<select
+    id="irType"
+    onchange="mostrarOtroIR()">
+
+<option value="">
+    Select Type...
+</option>
+
+<option>
+    Phase A - Ground
+</option>
+
+<option>
+    Phase B - Ground
+</option>
+
+<option>
+    Phase C - Ground
+</option>
+
+<option>
+    Phase A - Phase B
+</option>
+
+<option>
+    Phase A - Phase C
+</option>
+
+<option>
+    Phase B - Phase C
+</option>
+
+<option>
+    Other
+</option>
+
+</select>
+
+</div>
+
+
+<div
+    class="field"
+    id="irOtherContainer"
+    style="display:none">
+
+<label>Other</label>
+
+<input
+    type="text"
+    id="irOther"
+    placeholder="Write the type">
+
+</div>
+
+
+<div class="field">
+
+<label>Temperature</label>
+
+<input
+    type="text"
+    id="irTemperature"
+    placeholder="Example: 75 °F">
+
+</div>
+
+
+<div class="field">
+
+<label>Humidity</label>
+
+<input
+    type="number"
+    id="irHumidity"
+    min="0"
+    max="100"
+    step="0.1"
+    placeholder="Ejemplo: 45">
+
+</div>
+
+
+</div>
+
+
+<div class="buttons">
+
+<button
+    class="action pdf"
+    onclick="generarIrPdf()">
+    Generate IR PDF
+</button>
+
+<button
+    class="action clear"
+    onclick="limpiarIR()">
+    Clear IR
+</button>
+
+</div>
+
+
+<div
+    id="irStatus"
+    class="status">
+</div>
 
 </div>
 
 
 <div class="offline-box">
 
-    ✓ Esta versión funciona sin conexión a Internet.
+✓ BPL Tools — preparado para funcionar sin conexión.
 
 </div>
-
 
 </div>
 
 
 <script>
 
+/* =========================================================
+   STORAGE
+   ========================================================= */
 
-/* ========================================================
-   ALMACENAMIENTO
-   ======================================================== */
+const STORAGE_EMPRESAS = "bpl_empresas";
+const STORAGE_PRUEBAS = "bpl_pruebas";
+const STORAGE_CLIENTES = "bpl_clientes";
 
-const STORAGE_EMPRESAS =
-    "bpl_offline_empresas";
-
-const STORAGE_PRUEBAS =
-    "bpl_offline_pruebas";
-
-const STORAGE_CLIENTES =
-    "bpl_offline_clientes";
-
-
-/* ========================================================
-   DATOS INICIALES
-   ======================================================== */
 
 let empresas =
     cargarDatos(
@@ -885,44 +1074,27 @@ let clientes =
     );
 
 
-/* ========================================================
-   CARGAR DATOS
-   ======================================================== */
-
 function cargarDatos(
     nombre,
-    valorInicial
+    inicial
 ) {
 
-    const guardado =
+    const datos =
         localStorage.getItem(nombre);
 
-
-    if (!guardado) {
-
-        return valorInicial;
-
+    if (!datos) {
+        return inicial;
     }
-
 
     try {
-
-        return JSON.parse(guardado);
-
+        return JSON.parse(datos);
     }
 
-    catch (error) {
-
-        return valorInicial;
-
+    catch (e) {
+        return inicial;
     }
-
 }
 
-
-/* ========================================================
-   GUARDAR DATOS
-   ======================================================== */
 
 function guardarDatos(
     nombre,
@@ -937,47 +1109,72 @@ function guardarDatos(
 }
 
 
-/* ========================================================
+/* =========================================================
+   MENU
+   ========================================================= */
+
+function showSection(
+    sectionId,
+    button
+) {
+
+    document
+        .querySelectorAll(".section")
+        .forEach(section => {
+            section.classList.remove("active");
+        });
+
+
+    document
+        .querySelectorAll(".menu button")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+
+    document
+        .getElementById(sectionId)
+        .classList.add("active");
+
+
+    button.classList.add("active");
+
+
+    if (sectionId === "vlfSection") {
+        establecerFechaHoraVLF();
+    }
+
+
+    if (sectionId === "irSection") {
+        establecerFechaHoraIR();
+    }
+
+}
+
+
+/* =========================================================
    EMPRESAS
-   ======================================================== */
+   ========================================================= */
 
 function cargarEmpresas() {
 
     const select =
-        document.getElementById(
-            "empresa"
-        );
+        document.getElementById("empresa");
 
-
-    select.innerHTML = `
-
-        <option value="">
-            Seleccione una empresa...
-        </option>
-
-    `;
+    select.innerHTML =
+        '<option value="">Seleccione una empresa...</option>';
 
 
     empresas.forEach(
         empresa => {
 
             const option =
-                document.createElement(
-                    "option"
-                );
+                document.createElement("option");
 
+            option.value = empresa;
+            option.textContent = empresa;
 
-            option.value =
-                empresa;
-
-
-            option.textContent =
-                empresa;
-
-
-            select.appendChild(
-                option
-            );
+            select.appendChild(option);
 
         }
     );
@@ -992,110 +1189,59 @@ function agregarEmpresa() {
             "Escriba el nombre de la nueva empresa:"
         );
 
-
-    if (!nombre) {
-
-        return;
-
-    }
-
+    if (!nombre) return;
 
     const empresa =
-        nombre
-        .trim()
-        .toUpperCase();
+        nombre.trim().toUpperCase();
 
+    if (!empresa) return;
 
-    if (!empresa) {
+    if (empresas.includes(empresa)) {
 
-        return;
-
-    }
-
-
-    if (
-        empresas.includes(
-            empresa
-        )
-    ) {
-
-        alert(
-            "Esa empresa ya existe."
-        );
+        alert("Esa empresa ya existe.");
 
         return;
-
     }
 
-
-    empresas.push(
-        empresa
-    );
-
+    empresas.push(empresa);
 
     guardarDatos(
         STORAGE_EMPRESAS,
         empresas
     );
 
-
     cargarEmpresas();
-
 
     document.getElementById(
         "empresa"
-    ).value =
-        empresa;
-
-
-    mostrarMensaje(
-        "Empresa agregada."
-    );
+    ).value = empresa;
 
 }
 
 
-/* ========================================================
+/* =========================================================
    TIPOS DE PRUEBA
-   ======================================================== */
+   ========================================================= */
 
 function cargarTiposPrueba() {
 
     const select =
-        document.getElementById(
-            "tipoPrueba"
-        );
+        document.getElementById("tipoPrueba");
 
-
-    select.innerHTML = `
-
-        <option value="">
-            Seleccione un tipo de prueba...
-        </option>
-
-    `;
+    select.innerHTML =
+        '<option value="">Seleccione un tipo...</option>';
 
 
     tiposPrueba.forEach(
         tipo => {
 
             const option =
-                document.createElement(
-                    "option"
-                );
+                document.createElement("option");
 
+            option.value = tipo;
+            option.textContent = tipo;
 
-            option.value =
-                tipo;
-
-
-            option.textContent =
-                tipo;
-
-
-            select.appendChild(
-                option
-            );
+            select.appendChild(option);
 
         }
     );
@@ -1110,72 +1256,41 @@ function agregarTipoPrueba() {
             "Escriba el nuevo tipo de prueba:"
         );
 
-
-    if (!nombre) {
-
-        return;
-
-    }
-
+    if (!nombre) return;
 
     const tipo =
-        nombre
-        .trim()
-        .toUpperCase();
+        nombre.trim().toUpperCase();
 
+    if (!tipo) return;
 
-    if (!tipo) {
-
-        return;
-
-    }
-
-
-    if (
-        tiposPrueba.includes(
-            tipo
-        )
-    ) {
+    if (tiposPrueba.includes(tipo)) {
 
         alert(
             "Ese tipo de prueba ya existe."
         );
 
         return;
-
     }
 
-
-    tiposPrueba.push(
-        tipo
-    );
-
+    tiposPrueba.push(tipo);
 
     guardarDatos(
         STORAGE_PRUEBAS,
         tiposPrueba
     );
 
-
     cargarTiposPrueba();
-
 
     document.getElementById(
         "tipoPrueba"
-    ).value =
-        tipo;
-
-
-    mostrarMensaje(
-        "Tipo de prueba agregado."
-    );
+    ).value = tipo;
 
 }
 
 
-/* ========================================================
+/* =========================================================
    CLIENTES
-   ======================================================== */
+   ========================================================= */
 
 function cargarClientes() {
 
@@ -1184,31 +1299,22 @@ function cargarClientes() {
             "listaClientes"
         );
 
-
     lista.innerHTML = "";
 
-
     clientes
-    .sort()
-    .forEach(
-        cliente => {
+        .sort()
+        .forEach(
+            cliente => {
 
-            const option =
-                document.createElement(
-                    "option"
-                );
+                const option =
+                    document.createElement("option");
 
+                option.value = cliente;
 
-            option.value =
-                cliente;
+                lista.appendChild(option);
 
-
-            lista.appendChild(
-                option
-            );
-
-        }
-    );
+            }
+        );
 
 }
 
@@ -1216,152 +1322,94 @@ function cargarClientes() {
 function agregarCliente() {
 
     const input =
-        document.getElementById(
-            "cliente"
-        );
+        document.getElementById("cliente");
 
+    const cliente =
+        input.value.trim().toUpperCase();
 
-    const nombre =
-        input.value
-        .trim()
-        .toUpperCase();
-
-
-    if (!nombre) {
+    if (!cliente) {
 
         alert(
             "Escriba el nombre del cliente primero."
         );
 
-        input.focus();
-
         return;
-
     }
 
-
-    if (
-        clientes.includes(
-            nombre
-        )
-    ) {
+    if (clientes.includes(cliente)) {
 
         alert(
             "Ese cliente ya existe."
         );
 
         return;
-
     }
 
-
-    clientes.push(
-        nombre
-    );
-
+    clientes.push(cliente);
 
     guardarDatos(
         STORAGE_CLIENTES,
         clientes
     );
 
-
     cargarClientes();
 
-
-    input.value =
-        nombre;
-
-
-    mostrarMensaje(
-        "Cliente agregado."
-    );
+    input.value = cliente;
 
 }
 
 
-/* ========================================================
-   GENERAR NOMBRE
-   ======================================================== */
+/* =========================================================
+   GENERADOR DE NOMBRE
+   ========================================================= */
 
 function generarNombre() {
 
-
     const empresa =
-        document
-        .getElementById(
+        document.getElementById(
             "empresa"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+        ).value.trim().toUpperCase();
 
 
-    const tipoPrueba =
-        document
-        .getElementById(
+    const tipo =
+        document.getElementById(
             "tipoPrueba"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+        ).value.trim().toUpperCase();
 
 
     const cliente =
-        document
-        .getElementById(
+        document.getElementById(
             "cliente"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+        ).value.trim().toUpperCase();
 
 
     const locacion =
-        document
-        .getElementById(
+        document.getElementById(
             "locacion"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+        ).value.trim().toUpperCase();
 
 
     const lugar =
-        document
-        .getElementById(
+        document.getElementById(
             "lugar"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+        ).value.trim().toUpperCase();
 
 
     const elemento =
-        document
-        .getElementById(
+        document.getElementById(
             "elemento"
-        )
-        .value
-        .trim()
-        .toUpperCase();
+        ).value.trim().toUpperCase();
 
 
     const fecha =
-        document
-        .getElementById(
-            "fecha"
-        )
-        .value;
+        document.getElementById(
+            "fechaNombre"
+        ).value;
 
-
-    /* =====================================================
-       VALIDACION
-       ===================================================== */
 
     if (
         !empresa ||
-        !tipoPrueba ||
+        !tipo ||
         !cliente ||
         !locacion ||
         !lugar ||
@@ -1370,88 +1418,839 @@ function generarNombre() {
     ) {
 
         alert(
-            "Por favor complete todos los campos."
+            "Complete todos los campos."
         );
 
         return;
-
     }
 
 
-    /* =====================================================
-       ELEMENTO
-       ===================================================== */
+    const partes =
+        fecha.split("-");
 
-    const elementoFormateado =
+
+    const fechaFinal =
+        partes[1] +
+        partes[2] +
+        partes[0];
+
+
+    const elementoFinal =
         elemento.replace(
             /\s+/g,
             "_"
         );
 
 
-    /* =====================================================
-       FECHA
-       ===================================================== */
-
-    const partes =
-        fecha.split("-");
-
-
-    const anio =
-        partes[0];
-
-
-    const mes =
-        partes[1];
-
-
-    const dia =
-        partes[2];
+    const resultado =
+        empresa +
+        "_" +
+        tipo +
+        "_" +
+        cliente +
+        "_" +
+        locacion +
+        "_" +
+        lugar +
+        "_" +
+        elementoFinal +
+        "_" +
+        fechaFinal;
 
 
-    const fechaFormateada =
-        `${mes}${dia}${anio}`;
-
-
-    /* =====================================================
-       NOMBRE FINAL
-       ===================================================== */
-
-    const nombreArchivo =
-        `${empresa}_${tipoPrueba}_${cliente}_${locacion}_${lugar}_${elementoFormateado}_${fechaFormateada}`;
-
-
-    document
-    .getElementById(
+    document.getElementById(
         "resultado"
-    )
-    .value =
-        nombreArchivo;
+    ).value = resultado;
+
+}
 
 
-    mostrarMensaje(
-        "Nombre generado correctamente."
+async function copiarNombre() {
+
+    const texto =
+        document.getElementById(
+            "resultado"
+        ).value;
+
+
+    if (!texto) {
+
+        alert(
+            "Primero genere el nombre."
+        );
+
+        return;
+    }
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            texto
+        );
+
+        alert("Nombre copiado.");
+
+    }
+
+    catch (e) {
+
+        const campo =
+            document.getElementById(
+                "resultado"
+            );
+
+        campo.focus();
+
+        campo.select();
+
+        document.execCommand("copy");
+
+        alert("Nombre copiado.");
+
+    }
+
+}
+
+
+function limpiarNombre() {
+
+    document.getElementById("empresa").value = "";
+
+    document.getElementById("tipoPrueba").value = "";
+
+    document.getElementById("cliente").value = "";
+
+    document.getElementById("locacion").value = "";
+
+    document.getElementById("lugar").value = "";
+
+    document.getElementById("elemento").value = "";
+
+    document.getElementById("fechaNombre").value = "";
+
+    document.getElementById("resultado").value = "";
+
+}
+
+
+/* =========================================================
+   FECHA Y HORA AUTOMATICA
+   ========================================================= */
+
+function obtenerFechaLocal() {
+
+    const ahora = new Date();
+
+    const year =
+        ahora.getFullYear();
+
+    const month =
+        String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            ahora.getDate()
+        ).padStart(2, "0");
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
     );
 
 }
 
 
-/* ========================================================
-   COPIAR
-   ======================================================== */
+function obtenerHoraLocal() {
 
-async function copiarNombre() {
+    const ahora = new Date();
 
-    const resultado =
+    const hour =
+        String(
+            ahora.getHours()
+        ).padStart(2, "0");
+
+    const minute =
+        String(
+            ahora.getMinutes()
+        ).padStart(2, "0");
+
+
+    return (
+        hour +
+        ":" +
+        minute
+    );
+
+}
+
+
+function establecerFechaHoraVLF() {
+
+    const fecha =
         document.getElementById(
-            "resultado"
+            "vlfDate"
         );
 
 
-    if (!resultado.value) {
+    const hora =
+        document.getElementById(
+            "vlfTime"
+        );
+
+
+    if (!fecha.value) {
+        fecha.value =
+            obtenerFechaLocal();
+    }
+
+
+    if (!hora.value) {
+        hora.value =
+            obtenerHoraLocal();
+    }
+
+}
+
+
+function establecerFechaHoraIR() {
+
+    const fecha =
+        document.getElementById(
+            "irDate"
+        );
+
+
+    const hora =
+        document.getElementById(
+            "irTime"
+        );
+
+
+    if (!fecha.value) {
+        fecha.value =
+            obtenerFechaLocal();
+    }
+
+
+    if (!hora.value) {
+        hora.value =
+            obtenerHoraLocal();
+    }
+
+}
+
+
+/* =========================================================
+   NUMERO DE TRES DIGITOS
+   ========================================================= */
+
+function numeroTresDigitos(valor) {
+
+    const numero =
+        parseInt(
+            valor,
+            10
+        );
+
+
+    if (
+        isNaN(numero) ||
+        numero < 1
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(
+        numero
+    ).padStart(
+        3,
+        "0"
+    );
+
+}
+
+
+/* =========================================================
+   VLF PDF
+   ========================================================= */
+
+function generarVlfPdf() {
+
+    establecerFechaHoraVLF();
+
+
+    const numero =
+        numeroTresDigitos(
+            document.getElementById(
+                "vlfNumber"
+            ).value
+        );
+
+
+    if (!numero) {
 
         alert(
-            "Primero genere el nombre."
+            "Escriba el VLF #."
+        );
+
+        return;
+    }
+
+
+    const fecha =
+        document.getElementById(
+            "vlfDate"
+        ).value;
+
+
+    const hora =
+        document.getElementById(
+            "vlfTime"
+        ).value;
+
+
+    const temperatura =
+        valor("vlfTemperature");
+
+
+    const comentario =
+        valor("vlfComment");
+
+
+    const numberField =
+        valor("vlfNumberField");
+
+
+    const insulation =
+        valor("vlfInsulation");
+
+
+    const description =
+        valor("vlfDescription");
+
+
+    const installationDate =
+        valor("vlfInstallationDate");
+
+
+    const voltage =
+        valor("vlfVoltageNominal");
+
+
+    const length =
+        valor("vlfLength");
+
+
+    const start = {
+
+        Name:
+            valor("vlfStartName"),
+
+        Number:
+            valor("vlfStartNumber"),
+
+        Location:
+            valor("vlfStartLocation"),
+
+        Termination:
+            valor("vlfStartTermination"),
+
+        Switchgear:
+            valor("vlfStartSwitchgear"),
+
+        Manufacturer:
+            valor("vlfStartManufacturer")
+
+    };
+
+
+    const end = {
+
+        Name:
+            valor("vlfEndName"),
+
+        Number:
+            valor("vlfEndNumber"),
+
+        Location:
+            valor("vlfEndLocation"),
+
+        Termination:
+            valor("vlfEndTermination"),
+
+        Switchgear:
+            valor("vlfEndSwitchgear"),
+
+        Manufacturer:
+            valor("vlfEndManufacturer")
+
+    };
+
+
+    const filename =
+        "BPL-S_VLF_" +
+        numero +
+        "_" +
+        fechaArchivo(fecha) +
+        "_" +
+        horaArchivo(hora) +
+        ".pdf";
+
+
+    const lines = [];
+
+
+    lines.push("BPL-S - VLF TEST");
+
+    lines.push("");
+
+    lines.push(
+        "VLF #: " + numero
+    );
+
+    lines.push(
+        "Date: " + fecha
+    );
+
+    lines.push(
+        "Time: " + hora
+    );
+
+    lines.push(
+        "Temperature: " + temperatura
+    );
+
+    lines.push(
+        "Number: " + numberField
+    );
+
+    lines.push(
+        "Insulation: " + insulation
+    );
+
+    lines.push(
+        "Description: " + description
+    );
+
+    lines.push(
+        "Installation Date: " +
+        installationDate
+    );
+
+    lines.push(
+        "Voltage Nominal: " +
+        voltage
+    );
+
+    lines.push(
+        "Length: " + length
+    );
+
+    lines.push("");
+
+    lines.push("COMMENT:");
+
+    agregarTextoLargo(
+        lines,
+        comentario
+    );
+
+    lines.push("");
+
+    lines.push("START");
+
+    agregarCampo(
+        lines,
+        "Name",
+        start.Name
+    );
+
+    agregarCampo(
+        lines,
+        "Number",
+        start.Number
+    );
+
+    agregarCampo(
+        lines,
+        "Location",
+        start.Location
+    );
+
+    agregarCampo(
+        lines,
+        "Termination",
+        start.Termination
+    );
+
+    agregarCampo(
+        lines,
+        "Switchgear",
+        start.Switchgear
+    );
+
+    agregarCampo(
+        lines,
+        "Manufacturer",
+        start.Manufacturer
+    );
+
+    lines.push("");
+
+    lines.push("END");
+
+    agregarCampo(
+        lines,
+        "Name",
+        end.Name
+    );
+
+    agregarCampo(
+        lines,
+        "Number",
+        end.Number
+    );
+
+    agregarCampo(
+        lines,
+        "Location",
+        end.Location
+    );
+
+    agregarCampo(
+        lines,
+        "Termination",
+        end.Termination
+    );
+
+    agregarCampo(
+        lines,
+        "Switchgear",
+        end.Switchgear
+    );
+
+    agregarCampo(
+        lines,
+        "Manufacturer",
+        end.Manufacturer
+    );
+
+
+    crearPDF(
+        lines,
+        filename
+    );
+
+
+    document.getElementById(
+        "vlfStatus"
+    ).textContent =
+        "VLF PDF generated: " +
+        filename;
+
+}
+
+
+/* =========================================================
+   IR
+   ========================================================= */
+
+function mostrarOtroIR() {
+
+    const tipo =
+        document.getElementById(
+            "irType"
+        ).value;
+
+
+    const container =
+        document.getElementById(
+            "irOtherContainer"
+        );
+
+
+    if (tipo === "Other") {
+
+        container.style.display =
+            "flex";
+
+    }
+
+    else {
+
+        container.style.display =
+            "none";
+
+        document.getElementById(
+            "irOther"
+        ).value = "";
+
+    }
+
+}
+
+
+function obtenerTipoIR() {
+
+    const tipo =
+        valor("irType");
+
+
+    if (tipo === "Other") {
+
+        return valor("irOther");
+
+    }
+
+
+    return tipo;
+
+}
+
+
+function generarIrPdf() {
+
+    establecerFechaHoraIR();
+
+
+const numero =
+    valor("irNumber");
+
+
+    if (!numero) {
+
+        alert(
+            "Escriba el Number."
+        );
+
+        return;
+    }
+
+
+    const fecha =
+        valor("irDate");
+
+
+    const hora =
+        valor("irTime");
+
+
+    const location =
+        valor("irLocation");
+
+
+    const name =
+        valor("irName");
+
+
+    const megger =
+        valor("irMeggerId");
+
+
+    const type =
+        obtenerTipoIR();
+
+
+    const temperature =
+        valor("irTemperature");
+
+
+const humidityValue =
+    valor("irHumidity");
+
+const humidity =
+    humidityValue
+        ? humidityValue + " %"
+        : "";
+
+
+    const filename =
+        "BPL-S_IR_" +
+        numero +
+        "_" +
+        fechaArchivo(fecha) +
+        "_" +
+        horaArchivo(hora) +
+        ".pdf";
+
+
+    const lines = [];
+
+
+    lines.push(
+        "BPL-S - IR TEST"
+    );
+
+    lines.push("");
+
+    lines.push(
+        "Date: " + fecha
+    );
+
+    lines.push(
+        "Time: " + hora
+    );
+
+    lines.push(
+        "Location: " + location
+    );
+
+    lines.push(
+        "Name: " + name
+    );
+
+    lines.push(
+        "Number: " + numero
+    );
+
+    lines.push(
+        "Megger ID: " + megger
+    );
+
+    lines.push(
+        "Type: " + type
+    );
+
+    lines.push(
+        "Temperature: " +
+        temperature
+    );
+
+    lines.push(
+        "Humidity: " +
+        humidity
+    );
+
+
+    crearPDF(
+        lines,
+        filename
+    );
+
+
+    document.getElementById(
+        "irStatus"
+    ).textContent =
+        "IR PDF generated: " +
+        filename;
+
+}
+
+
+/* =========================================================
+   PDF SIMPLE - SIN INTERNET
+   ========================================================= */
+
+function valor(id) {
+
+    const elemento =
+        document.getElementById(id);
+
+
+    if (!elemento) {
+
+        return "";
+
+    }
+
+
+    return elemento.value.trim();
+
+}
+
+
+function fechaArchivo(fecha) {
+
+    if (!fecha) {
+
+        const ahora =
+            new Date();
+
+        fecha =
+            ahora
+            .toISOString()
+            .substring(
+                0,
+                10
+            );
+
+    }
+
+
+    const partes =
+        fecha.split("-");
+
+
+    if (partes.length !== 3) {
+
+        return fecha;
+
+    }
+
+
+    return (
+        partes[1] +
+        "-" +
+        partes[2] +
+        "-" +
+        partes[0]
+    );
+
+}
+
+
+function horaArchivo(hora) {
+
+    if (!hora) {
+
+        hora =
+            obtenerHoraLocal();
+
+    }
+
+
+    return hora.replace(
+        ":",
+        ""
+    );
+
+}
+
+
+function agregarCampo(
+    lines,
+    nombre,
+    valorCampo
+) {
+
+    lines.push(
+        nombre +
+        ": " +
+        valorCampo
+    );
+
+}
+
+
+function agregarTextoLargo(
+    lines,
+    texto
+) {
+
+    if (!texto) {
+
+        lines.push(
+            ""
         );
 
         return;
@@ -1459,34 +2258,50 @@ async function copiarNombre() {
     }
 
 
-    try {
-
-        await navigator
-        .clipboard
-        .writeText(
-            resultado.value
-        );
+    const palabras =
+        texto.split(/\s+/);
 
 
-        mostrarMensaje(
-            "¡Nombre copiado!"
-        );
-
-    }
-
-    catch (error) {
-
-        resultado.focus();
-
-        resultado.select();
-
-        document.execCommand(
-            "copy"
-        );
+    let linea = "";
 
 
-        mostrarMensaje(
-            "¡Nombre copiado!"
+    palabras.forEach(
+        palabra => {
+
+            if (
+                (linea + " " + palabra)
+                .trim()
+                .length > 85
+            ) {
+
+                lines.push(
+                    linea.trim()
+                );
+
+                linea =
+                    palabra;
+
+            }
+
+            else {
+
+                linea =
+                    (
+                        linea +
+                        " " +
+                        palabra
+                    ).trim();
+
+            }
+
+        }
+    );
+
+
+    if (linea) {
+
+        lines.push(
+            linea
         );
 
     }
@@ -1494,93 +2309,438 @@ async function copiarNombre() {
 }
 
 
-/* ========================================================
-   LIMPIAR
-   ======================================================== */
+/* =========================================================
+   CREACION DE PDF
+   ========================================================= */
 
-function limpiarFormulario() {
+function escaparPDF(texto) {
 
-    document.getElementById(
-        "empresa"
-    ).value = "";
-
-
-    document.getElementById(
-        "tipoPrueba"
-    ).value = "";
-
-
-    document.getElementById(
-        "cliente"
-    ).value = "";
-
-
-    document.getElementById(
-        "locacion"
-    ).value = "";
-
-
-    document.getElementById(
-        "lugar"
-    ).value = "";
-
-
-    document.getElementById(
-        "elemento"
-    ).value = "";
-
-
-    document.getElementById(
-        "fecha"
-    ).value = "";
-
-
-    document.getElementById(
-        "resultado"
-    ).value = "";
-
-
-    document.getElementById(
-        "status"
-    ).textContent = "";
-
+    return String(texto)
+        .replace(/\\/g, "\\\\")
+        .replace(/\(/g, "\\(")
+        .replace(/\)/g, "\\)");
 }
 
 
-/* ========================================================
-   MENSAJES
-   ======================================================== */
-
-function mostrarMensaje(
-    mensaje
+function crearPDF(
+    lines,
+    filename
 ) {
 
-    const status =
-        document.getElementById(
-            "status"
+    const maxLines =
+        45;
+
+
+    const paginas = [];
+
+
+    for (
+        let i = 0;
+        i < lines.length;
+        i += maxLines
+    ) {
+
+        paginas.push(
+            lines.slice(
+                i,
+                i + maxLines
+            )
+        );
+
+    }
+
+
+    const objects = [];
+
+
+    function addObject(
+        contenido
+    ) {
+
+        objects.push(
+            contenido
+        );
+
+        return objects.length;
+
+    }
+
+
+    const catalogId =
+        addObject("");
+
+
+    const pagesId =
+        addObject("");
+
+
+    const pageIds = [];
+
+
+    paginas.forEach(
+        pageLines => {
+
+            const contentLines = [];
+
+
+            contentLines.push(
+                "BT"
+            );
+
+
+            contentLines.push(
+                "/F1 10 Tf"
+            );
+
+
+            contentLines.push(
+                "50 760 Td"
+            );
+
+
+            pageLines.forEach(
+                (line, index) => {
+
+                    if (index > 0) {
+
+                        contentLines.push(
+                            "0 -16 Td"
+                        );
+
+                    }
+
+
+                    contentLines.push(
+                        "(" +
+                        escaparPDF(line) +
+                        ") Tj"
+                    );
+
+                }
+            );
+
+
+            contentLines.push(
+                "ET"
+            );
+
+
+            const stream =
+                contentLines.join(
+                    "\n"
+                );
+
+
+            const contentId =
+                addObject(
+                    "<< /Length " +
+                    stream.length +
+                    " >>\n" +
+                    "stream\n" +
+                    stream +
+                    "\nendstream"
+                );
+
+
+            const pageId =
+                addObject(
+                    "<< /Type /Page " +
+                    "/Parent " +
+                    pagesId +
+                    " 0 R " +
+                    "/MediaBox [0 0 612 792] " +
+                    "/Resources << " +
+                    "/Font << " +
+                    "/F1 " +
+                    "FONT_ID 0 R " +
+                    ">> " +
+                    ">> " +
+                    "/Contents " +
+                    contentId +
+                    " 0 R >>"
+                );
+
+
+            pageIds.push(
+                pageId
+            );
+
+        }
+    );
+
+
+    const fontId =
+        addObject(
+            "<< /Type /Font " +
+            "/Subtype /Type1 " +
+            "/BaseFont /Helvetica >>"
         );
 
 
-    status.textContent =
-        mensaje;
+    pageIds.forEach(
+        pageId => {
+
+            objects[pageId - 1] =
+                objects[pageId - 1]
+                .replace(
+                    "FONT_ID",
+                    String(fontId)
+                );
+
+        }
+    );
+
+
+    objects[pagesId - 1] =
+        "<< /Type /Pages " +
+        "/Kids [" +
+        pageIds
+            .map(id => id + " 0 R")
+            .join(" ") +
+        "] " +
+        "/Count " +
+        pageIds.length +
+        " >>";
+
+
+    objects[catalogId - 1] =
+        "<< /Type /Catalog " +
+        "/Pages " +
+        pagesId +
+        " 0 R >>";
+
+
+    let pdf =
+        "%PDF-1.4\n";
+
+
+    const offsets = [0];
+
+
+    objects.forEach(
+        (object, index) => {
+
+            offsets[index + 1] =
+                pdf.length;
+
+
+            pdf +=
+                (
+                    (index + 1) +
+                    " 0 obj\n" +
+                    object +
+                    "\nendobj\n"
+                );
+
+        }
+    );
+
+
+    const xref =
+        pdf.length;
+
+
+    pdf +=
+        "xref\n" +
+        "0 " +
+        (objects.length + 1) +
+        "\n";
+
+
+    pdf +=
+        "0000000000 65535 f \n";
+
+
+    for (
+        let i = 1;
+        i < offsets.length;
+        i++
+    ) {
+
+        pdf +=
+            String(
+                offsets[i]
+            )
+            .padStart(
+                10,
+                "0"
+            ) +
+            " 00000 n \n";
+
+    }
+
+
+    pdf +=
+        "trailer\n" +
+        "<< /Size " +
+        (objects.length + 1) +
+        " /Root " +
+        catalogId +
+        " 0 R >>\n" +
+        "startxref\n" +
+        xref +
+        "\n" +
+        "%%EOF";
+
+
+    const blob =
+        new Blob(
+            [pdf],
+            {
+                type: "application/pdf"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+
+    link.href = url;
+
+    link.download =
+        filename;
+
+
+    document.body.appendChild(
+        link
+    );
+
+
+    link.click();
+
+
+    document.body.removeChild(
+        link
+    );
 
 
     setTimeout(
-        function() {
+        () => {
 
-            status.textContent =
-                "";
+            URL.revokeObjectURL(
+                url
+            );
 
         },
-        3000
+        5000
     );
 
 }
 
 
-/* ========================================================
+/* =========================================================
+   LIMPIAR VLF
+   ========================================================= */
+
+function limpiarVLF() {
+
+    document
+        .querySelectorAll(
+            "#vlfSection input, #vlfSection textarea"
+        )
+        .forEach(
+            elemento => {
+
+                elemento.value = "";
+
+            }
+        );
+
+
+    establecerFechaHoraVLF();
+
+
+    document.getElementById(
+        "vlfStatus"
+    ).textContent = "";
+
+}
+
+
+/* =========================================================
+   LIMPIAR IR
+   ========================================================= */
+
+function limpiarIR() {
+
+    document
+        .querySelectorAll(
+            "#irSection input"
+        )
+        .forEach(
+            elemento => {
+
+                elemento.value = "";
+
+            }
+        );
+
+
+    document.getElementById(
+        "irType"
+    ).value = "";
+
+
+    document.getElementById(
+        "irOtherContainer"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "irStatus"
+    ).textContent = "";
+
+
+    establecerFechaHoraIR();
+
+}
+
+
+/* =========================================================
+   SERVICE WORKER
+   ========================================================= */
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+                .catch(
+                    function(error) {
+
+                        console.log(
+                            "Offline service worker:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
    INICIO
-   ======================================================== */
+   ========================================================= */
 
 cargarEmpresas();
 
@@ -1588,21 +2748,12 @@ cargarTiposPrueba();
 
 cargarClientes();
 
+establecerFechaHoraVLF();
+
+establecerFechaHoraIR();
+
 
 </script>
 
-<script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
-        navigator.serviceWorker.register("./service-worker.js")
-            .then(function () {
-                console.log("BPL Name Generator: modo offline activado");
-            })
-            .catch(function (error) {
-                console.error("Error con el modo offline:", error);
-            });
-    });
-}
-</script>
 </body>
 </html>
