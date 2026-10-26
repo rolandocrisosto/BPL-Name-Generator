@@ -1,4 +1,4 @@
-const CACHE_NAME = "bpl-name-generator-v2";
+const CACHE_NAME = "bpl-name-generator-v3";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
